@@ -1,35 +1,16 @@
 const bands = [
-  'The Plot in You',
-  'The Devil Wears Prada',
-  'Pierce the Veil',
-  'Norma Jean',
-  'The Bled',
-  'Say Anything',
-  'The Midway State',
-  'We Came as Romans',
-  'Counterparts',
-  'Oh, Sleeper',
-  'A Skylit Drive',
-  'Anywhere But Here',
-  'An Old Dog'
+  'The Plot in You', 'The Devil Wears Prada', 'Pierce the Veil', 'Norma Jean',
+  'The Bled', 'Say Anything', 'The Midway State', 'We Came as Romans',
+  'Counterparts', 'Oh, Sleeper', 'A Skylit Drive', 'Anywhere But Here', 'An Old Dog'
 ];
 
-// Helper to strip leading articles
-function stripArticle(bandName) {
-  return bandName.replace(/^(a |an |the )/i, '').trim();
+function stripArticle(name) {
+  return name.replace(/^(a |an |the )/i, '').trim();
 }
 
-// Sort by article-stripped name
-const sortedBands = bands.sort((a, b) => {
-  const nameA = stripArticle(a).toLowerCase();
-  const nameB = stripArticle(b).toLowerCase();
-  return nameA.localeCompare(nameB);
+const sortedBands = bands.slice().sort((a, b) => {
+  return stripArticle(a).localeCompare(stripArticle(b));
 });
 
-// Add sorted items to the DOM
-const bandList = document.getElementById('band');
-sortedBands.forEach(band => {
-  const li = document.createElement('li');
-  li.textContent = band;
-  bandList.appendChild(li);
-});
+const ul = document.getElementById('bands');
+ul.innerHTML = sortedBands.map(band => <li>${band}</li>).join('');
